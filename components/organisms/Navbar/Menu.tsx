@@ -1,3 +1,4 @@
+/* eslint linebreak-style: ["error", "unix"] */
 import cx from 'classnames';
 import Link from 'next/link';
 

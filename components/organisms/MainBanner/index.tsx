@@ -13,7 +13,8 @@ export default function MainBanner() {
               <span className="d-sm-none d-inline">a</span>
               <span className="underline-blue"> New</span>
               <br className="d-sm-block d-none" />
-              <span className="underline-blue">Experience</span>
+              <span className="underline-blue"> Experience</span>
+              {' '}
               in Gaming
             </h1>
 
