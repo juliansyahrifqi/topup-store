@@ -4,6 +4,7 @@ interface AuthProps {
     isLogin?: boolean;
 }
 
+/* eslint linebreak-style: ["error", "unix"] */
 export default function Auth(props: Partial<AuthProps>) {
   const { isLogin } = props;
 

@@ -3,6 +3,7 @@ import Auth from './Auth';
 import Menu from './Menu';
 import ToggleMenu from './ToggleMenu';
 
+/* eslint linebreak-style: ["error", "unix"] */
 export default function Navbar() {
   return (
     <section>
