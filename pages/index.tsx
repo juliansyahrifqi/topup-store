@@ -5,6 +5,7 @@ import MainBanner from '../components/organisms/MainBanner';
 import TransactionStep from '../components/organisms/TransactionStep';
 import FeaturedGame from '../components/organisms/FeaturedGame';
 import Reached from '../components/organisms/Reached';
+import Story from '../components/organisms/Story';
 
 /* eslint linebreak-style: ["error", "unix"] */
 export default function Home() {
@@ -19,6 +20,7 @@ export default function Home() {
       <TransactionStep />
       <FeaturedGame />
       <Reached />
+      <Story />
     </>
 
   );
