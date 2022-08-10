@@ -1,12 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-interface GameItemProsp {
+interface GameItemProps {
     title: string;
     category: string;
     thumbnail: 'Thumbnail-1' | 'Thumbnail-2' | 'Thumbnail-3' | 'Thumbnail-4' | 'Thumbnail-5';
 }
-export default function GameItem(props: GameItemProsp) {
+export default function GameItem(props: GameItemProps) {
   const { title, category, thumbnail } = props;
 
   return (

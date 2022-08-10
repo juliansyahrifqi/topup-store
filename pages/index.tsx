@@ -4,6 +4,7 @@ import Navbar from '../components/organisms/Navbar';
 import MainBanner from '../components/organisms/MainBanner';
 import TransactionStep from '../components/organisms/TransactionStep';
 import FeaturedGame from '../components/organisms/FeaturedGame';
+import Reached from '../components/organisms/Reached';
 
 /* eslint linebreak-style: ["error", "unix"] */
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
       <MainBanner />
       <TransactionStep />
       <FeaturedGame />
+      <Reached />
     </>
 
   );
