@@ -23,7 +23,7 @@
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
         "react/react-in-jsx-scope": "off",
         "jsx-a11y/anchor-is-valid": "off",
-        // "linebreak-style": ["error", "windows"],
+        "linebreak-style": ["error", "windows"],
         "import/extensions": [
             "error",
             "ignorePackages",
