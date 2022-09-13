@@ -10,7 +10,7 @@ export default function Sidebar() {
         <Profile />
 
         <div className="menus">
-          <MenuItem title="Overview" icon="icon-menu-overview" />
+          <MenuItem title="Overview" icon="icon-menu-overview" active />
 
           <MenuItem title="Transactions" icon="icon-menu-transactions" />
 
