@@ -1,18 +1,18 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useCallback, useEffect, useState } from 'react';
 import GameItem from '../../molecules/GameItem';
+import { getFeaturedGame } from '../../../services/player';
 
 export default function FeaturedGame() {
   const [gameList, setGameList] = useState([]);
 
+  const getFeaturedGameList = useCallback(async () => {
+    const data = await getFeaturedGame();
+
+    setGameList(data);
+  }, [getFeaturedGame]);
+
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await axios.get('https://topupstore.herokuapp.com/api/v1/players/landingpage');
-
-      setGameList(response.data.data);
-    };
-
-    fetchData();
+    getFeaturedGameList();
   }, []);
 
   return (
@@ -31,13 +31,6 @@ export default function FeaturedGame() {
           {gameList.map((item) => (
             <GameItem key={item._id} thumbnail={`https://topupstore.herokuapp.com/uploads/${item.thumbnail}`} title={item.name} category={item.category.name} />
           ))}
-
-          {/* <GameItem thumbnail="/img/Thumbnail-1.png" title="Super Mechs" category="Mobile" />
-          <GameItem thumbnail="/img/Thumbnail-2.png" title="Call of Duty: Modern" category="Mobile" />
-          <GameItem thumbnail="/img/Thumbnail-3.png" title="Mobile Legends" category="Mobile" />
-          <GameItem thumbnail="/img/Thumbnail-4.png" title="Clash of Clans" category="Mobile" />
-          <GameItem thumbnail="/img/Thumbnail-5.png" title="Valorant" category="Desktop" /> */}
-
         </div>
       </div>
     </section>
