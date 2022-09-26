@@ -18,9 +18,14 @@ export default function Detail() {
     },
   });
 
-  const getVoucherDetailAPI = useCallback(async (id) => {
+  const [nominals, setNominals] = useState([]);
+  const [payments, setPayments] = useState([]);
+
+  const getVoucherDetailAPI = useCallback(async (id: string) => {
     const data = await getDetailVoucher(id);
-    setDataItem(data);
+    setDataItem(data.detail);
+    setNominals(data.detail.nominals);
+    setPayments(data.payments);
   }, []);
 
   useEffect(() => {
@@ -48,7 +53,7 @@ export default function Detail() {
             <div className="col-xl-9 col-lg-8 col-md-7 ps-md-25">
               <TopUpItem data={dataItem} type="desktop" />
               <hr />
-              <TopUpForm />
+              <TopUpForm nominals={nominals} payments={payments} />
             </div>
           </div>
         </div>

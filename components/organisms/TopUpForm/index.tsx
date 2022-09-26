@@ -1,15 +1,20 @@
 import React from 'react';
+import { NominalsTypes, PaymentTypes } from '../../../services/data-types';
 import NominalItem from './NominalItem';
 import PaymentItem from './PaymentItem';
 
-export default function TopUpForm() {
+interface TopUpFormProps {
+  nominals: NominalsTypes[];
+  payments: PaymentTypes[];
+}
+
+export default function TopUpForm(props: TopUpFormProps) {
+  const { nominals, payments } = props;
+
   return (
     <form action="./checkout.html" method="POST">
-
       <div className="pt-md-50 pt-30">
-
         <div className="">
-
           <label htmlFor="ID" className="form-label text-lg fw-medium color-palette-1 mb-10">
             Verify ID
           </label>
@@ -22,19 +27,21 @@ export default function TopUpForm() {
             aria-describedby="verifyID"
             placeholder="Enter your ID"
           />
-
         </div>
-
       </div>
 
       <div className="pt-md-50 pb-md-50 pt-30 pb-20">
         <p className="text-lg fw-medium color-palette-1 mb-md-10 mb-0">Nominal Top Up</p>
         <div className="row justify-content-between">
-          <NominalItem _id="312321" coinQuantity={20} coinName="Gold" price={50000} />
-
-          <NominalItem _id="312321" coinQuantity={20} coinName="Gold" price={50000} />
-
-          <NominalItem _id="312321" coinQuantity={20} coinName="Gold" price={50000} />
+          {nominals.map((nominal) => (
+            <NominalItem
+              key={nominal._id}
+              _id={nominal._id}
+              coinQuantity={nominal.coinQuantity}
+              coinName={nominal.coinName}
+              price={nominal.price}
+            />
+          ))}
 
           <div className="col-lg-4 col-sm-6" />
         </div>
@@ -45,7 +52,13 @@ export default function TopUpForm() {
 
         <fieldset id="paymentMethod">
           <div className="row justify-content-between">
-            <PaymentItem bankID="321321" type="Transfer" bankName="Mandiri" />
+            {payments.map((payment) => payment.banks.map((bank) => (
+              <PaymentItem
+                bankID={bank._id}
+                type={payment.type}
+                bankName={bank.bankName}
+              />
+            )))}
             <div className="col-lg-4 col-sm-6" />
           </div>
         </fieldset>
@@ -69,7 +82,6 @@ export default function TopUpForm() {
       </div>
 
       <div className="d-sm-block d-flex flex-column w-100">
-
         <a
           href="/checkout"
           type="submit"
@@ -77,7 +89,6 @@ export default function TopUpForm() {
         >
           Continue
         </a>
-
       </div>
     </form>
   );
