@@ -26,7 +26,7 @@ export interface PaymentTypes {
     banks: BanksTypes[]
 }
 
-export interface Nominals {
+export interface NominalsTypes {
     _id: string;
     coinQuantity: number;
     coinName: string;
