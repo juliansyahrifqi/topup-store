@@ -1,12 +1,34 @@
 import Link from 'next/link';
-
-interface AuthProps {
-    isLogin?: boolean;
-}
+import { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
+import jwt_decode from 'jwt-decode';
 
 /* eslint linebreak-style: ["error", "unix"] */
-export default function Auth(props: Partial<AuthProps>) {
-  const { isLogin } = props;
+export default function Auth() {
+  const [isLogin, setIsLogin] = useState(false);
+  const [user, setUser] = useState({
+    avatar: '',
+    email: '',
+    id: '',
+    name: '',
+    username: '',
+  });
+
+  useEffect(() => {
+    const token = Cookies.get('token');
+
+    if (token) {
+      const jwtToken = atob(token);
+      const payload = jwt_decode(jwtToken);
+      const { player } = payload;
+
+      const IMG = process.env.NEXT_PUBLIC_IMG;
+      player.avatar = `${IMG}/${player.avatar}`;
+
+      setIsLogin(true);
+      setUser(player);
+    }
+  }, []);
 
   if (isLogin) {
     return (
@@ -22,7 +44,7 @@ export default function Auth(props: Partial<AuthProps>) {
             aria-expanded="false"
           >
             <img
-              src="/img/avatar-1.png"
+              src={user.avatar}
               className="rounded-circle"
               width="40"
               height="40"
@@ -31,12 +53,12 @@ export default function Auth(props: Partial<AuthProps>) {
           </a>
 
           <ul className="dropdown-menu border-0" aria-labelledby="dropdownMenuLink">
-            <li><Link href="/member"><a className="dropdown-item text-lg color-palette-2" href="#">My Profile</a></Link></li>
-            <li><Link href="/"><a className="dropdown-item text-lg color-palette-2" href="#">Wallet</a></Link></li>
+            <li><Link href="/member"><a className="dropdown-item text-lg color-palette-2">My Profile</a></Link></li>
+            <li><Link href="/"><a className="dropdown-item text-lg color-palette-2">Wallet</a></Link></li>
             <li>
-              <Link href="/member/edit-profile"><a className="dropdown-item text-lg color-palette-2" href="#">Account Settings</a></Link>
+              <Link href="/member/edit-profile"><a className="dropdown-item text-lg color-palette-2">Account Settings</a></Link>
             </li>
-            <li><Link href="/sign-in"><a className="dropdown-item text-lg color-palette-2" href="#">Log Out</a></Link></li>
+            <li><Link href="/sign-in"><a className="dropdown-item text-lg color-palette-2">Log Out</a></Link></li>
           </ul>
         </div>
       </li>
@@ -52,7 +74,6 @@ export default function Auth(props: Partial<AuthProps>) {
           role="button"
         >
           Sign In
-
         </a>
       </Link>
     </li>
