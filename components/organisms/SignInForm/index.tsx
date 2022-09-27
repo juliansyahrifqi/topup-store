@@ -1,6 +1,36 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { setLogin } from '../../../services/auth';
 
 export default function SignInForm() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const router = useRouter();
+
+  const onSubmit = async () => {
+    const data = {
+      email,
+      password,
+    };
+
+    if (!email || !password) {
+      toast.error('Semua field harus diisi!');
+    } else {
+      const response = await setLogin(data);
+
+      if (response.error) {
+        toast.error(response.message);
+      } else {
+        toast.success('Login Berhasil!');
+        router.push('/');
+      }
+    }
+  };
+
   return (
     <>
       <h2 className="text-4xl fw-bold color-palette-1 mb-10">Sign In</h2>
@@ -20,6 +50,8 @@ export default function SignInForm() {
           name="email"
           aria-describedby="email"
           placeholder="Enter your email address"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
         />
       </div>
 
@@ -38,18 +70,19 @@ export default function SignInForm() {
           name="password"
           aria-describedby="password"
           placeholder="Your password"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
         />
       </div>
 
       <div className="button-group d-flex flex-column mx-auto pt-50">
-        <Link href="/">
-          <a
-            className="btn btn-sign-in fw-medium text-lg text-white rounded-pill mb-16"
-            role="button"
-          >
-            Continue to Sign In
-          </a>
-        </Link>
+        <button
+          type="button"
+          className="btn btn-sign-in fw-medium text-lg text-white rounded-pill mb-16"
+          onClick={onSubmit}
+        >
+          Continue to Sign In
+        </button>
 
         <Link href="/sign-up">
           <a
@@ -61,6 +94,8 @@ export default function SignInForm() {
           </a>
         </Link>
       </div>
+
+      <ToastContainer />
     </>
   );
 }

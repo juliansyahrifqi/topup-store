@@ -31,12 +31,12 @@ export default function SignUpPhoto() {
     getGameCategoryAPI();
 
     const getLocalForm = localStorage.getItem('sign-up-form');
-    setLocalForm(JSON.parse(getLocalForm));
+    setLocalForm(JSON.parse(getLocalForm!));
   }, []);
 
   const onSubmit = async () => {
     const localStorageItem = await localStorage.getItem('sign-up-form');
-    const form = JSON.parse(localStorageItem);
+    const form = JSON.parse(localStorageItem!);
 
     const data = new FormData();
 
@@ -52,7 +52,7 @@ export default function SignUpPhoto() {
 
     const result = await setSignUp(data);
 
-    if (result.error === 1) {
+    if (result.error) {
       toast.error(result.message);
     } else {
       toast.success('Sign Up Berhasil!');
