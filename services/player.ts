@@ -1,31 +1,31 @@
-import axios from 'axios';
+import callAPI from '../config/api';
 
 const ROOT_API = process.env.NEXT_PUBLIC_API;
 const API_VERSION = 'api/v1';
 
 export const getFeaturedGame = async () => {
-  const URL = 'players/landingpage';
+  const url = `${ROOT_API}/${API_VERSION}/players/landingpage`;
 
-  const response = await axios.get(`${ROOT_API}/${API_VERSION}/${URL}`);
-  const axiosResponse = response.data;
-
-  return axiosResponse.data;
+  return callAPI({
+    url,
+    method: 'GET',
+  });
 };
 
-export const getDetailVoucher = async (id) => {
-  const URL = `players/${id}/detail`;
+export const getDetailVoucher = async (id: string) => {
+  const url = `${ROOT_API}/${API_VERSION}/players/${id}/detail`;
 
-  const response = await axios.get(`${ROOT_API}/${API_VERSION}/${URL}`);
-  const axiosResponse = response.data;
-
-  return axiosResponse.data;
+  return callAPI({
+    url,
+    method: 'GET',
+  });
 };
 
 export const getGameCategory = async () => {
-  const URL = 'players/category';
+  const url = `${ROOT_API}/${API_VERSION}/players/category`;
 
-  const response = await axios.get(`${ROOT_API}/${API_VERSION}/${URL}`);
-  const axiosResponse = response.data;
-
-  return axiosResponse.data;
+  return callAPI({
+    url,
+    method: 'GET',
+  });
 };
