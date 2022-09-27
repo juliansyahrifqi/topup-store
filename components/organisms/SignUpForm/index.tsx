@@ -2,6 +2,8 @@ import Link from 'next/link';
 import { useState } from 'react';
 import cx from 'classnames';
 import { useRouter } from 'next/router';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function SignUpForm() {
   const [name, setName] = useState('');
@@ -21,12 +23,18 @@ export default function SignUpForm() {
       password,
     };
 
-    localStorage.setItem('sign-up-form', JSON.stringify(userForm));
-    router.push('/sign-up-photo');
+    if (email === '' && name === '' && password === '') {
+      toast.error('Semua field harus diisi!');
+    } else {
+      localStorage.setItem('sign-up-form', JSON.stringify(userForm));
+      router.push('/sign-up-photo');
+    }
   };
 
   return (
     <>
+      <ToastContainer />
+
       <h2 className="text-4xl fw-bold color-palette-1 mb-10">Sign Up</h2>
       <p className="text-lg color-palette-1 m-0">Daftar dan bergabung dengan kami</p>
       <div className="pt-50">
@@ -38,6 +46,7 @@ export default function SignUpForm() {
           placeholder="Enter your name"
           value={name}
           onChange={(event) => setName(event.target.value)}
+          required
         />
       </div>
       <div className="pt-30">
@@ -52,6 +61,7 @@ export default function SignUpForm() {
           placeholder="Enter your email address"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
+          required
         />
       </div>
       <div className="pt-30">
@@ -63,6 +73,7 @@ export default function SignUpForm() {
           placeholder="Your password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
+          required
         />
       </div>
       <div className="button-group d-flex flex-column mx-auto pt-50">
