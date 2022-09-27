@@ -1,9 +1,28 @@
 /* eslint linebreak-style: ["error", "unix"] */
 
 import Image from 'next/image';
-import Link from 'next/link';
+import { useCallback, useEffect, useState } from 'react';
+import { getGameCategory } from '../services/player';
 
 export default function SignUpPhoto() {
+  const [categories, setCategories] = useState([]);
+  const [favorite, setFavorite] = useState('');
+
+  const onSubmit = () => {
+    console.log('Favorite', favorite);
+  };
+
+  const getGameCategoryAPI = useCallback(async () => {
+    const data = await getGameCategory();
+
+    setCategories(data);
+    setFavorite(data[0]._id);
+  }, [getGameCategory]);
+
+  useEffect(() => {
+    getGameCategoryAPI();
+  }, []);
+
   return (
     <section className="sign-up-photo mx-auto pt-lg-227 pb-lg-227 pt-130 pb-50">
       <div className="container mx-auto">
@@ -30,25 +49,28 @@ export default function SignUpPhoto() {
                   name="category"
                   className="form-select d-block w-100 rounded-pill text-lg"
                   aria-label="Favorite Game"
+                  value={favorite}
+                  onChange={(event) => setFavorite(event.target.value)}
                 >
-                  <option value="" disabled selected>Select Category</option>
-                  <option value="fps">First Person Shoter</option>
-                  <option value="rpg">Role Playing Game</option>
-                  <option value="arcade">Arcade</option>
-                  <option value="sport">Sport</option>
+                  {categories.map((category) => (
+                    <option
+                      value={category._id}
+                    >
+                      {category.name}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
 
             <div className="button-group d-flex flex-column mx-auto">
-              <Link href="sign-up-photo-success">
-                <a
-                  className="btn btn-create fw-medium text-lg text-white rounded-pill mb-16"
-                  role="button"
-                >
-                  Create My Account
-                </a>
-              </Link>
+              <button
+                type="button"
+                className="btn btn-create fw-medium text-lg text-white rounded-pill mb-16"
+                onClick={onSubmit}
+              >
+                Create My Account
+              </button>
 
               <a
                 className="btn btn-tnc text-lg color-palette-1 text-decoration-underline pt-15"
