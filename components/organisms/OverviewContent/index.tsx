@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { HistoryTransactionTypes, TopupCategoriesTypes } from '../../../services/data-types';
 import { getMemberOverview } from '../../../services/player';
 import Category from './Category';
 import TableRow from './TableRow';
@@ -10,8 +11,6 @@ export default function OverviewContent() {
 
   const getMemberOverviewList = useCallback(async () => {
     const response = await getMemberOverview();
-
-    console.log(response);
 
     if (response.error) {
       toast.error(response.message);
@@ -37,8 +36,12 @@ export default function OverviewContent() {
 
           <div className="main-content">
             <div className="row">
-              {count.map((item) => (
-                <Category nominal={item.value} icon="icon-desktop">
+              {count.map((item: TopupCategoriesTypes) => (
+                <Category
+                  key={item._id}
+                  nominal={item.value}
+                  icon="icon-desktop"
+                >
                   {item.name}
                 </Category>
               ))}
@@ -60,8 +63,9 @@ export default function OverviewContent() {
               </thead>
 
               <tbody>
-                {data.map((item) => (
+                {data.map((item: HistoryTransactionTypes) => (
                   <TableRow
+                    key={item._id}
                     title={item.historyVoucherTopup.gameName}
                     category={item.historyVoucherTopup.category}
                     item={`${item.historyVoucherTopup.coinQuantity} ${item.historyVoucherTopup.coinName}`}

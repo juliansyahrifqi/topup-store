@@ -2,12 +2,12 @@ import cx from 'classnames';
 import { NumericFormat } from 'react-number-format';
 
 interface TableRowProps {
-    title: string,
-    category: string,
-    item: string,
-    price: number,
-    status: 'PENDING' | 'SUCCESS' | 'FAILED',
-    image: string,
+    title: string;
+    category: string;
+    item: string;
+    price: number;
+    status: string;
+    image: string;
 }
 
 export default function TableRow(props: TableRowProps) {
