@@ -64,10 +64,21 @@ export default function Auth() {
           </a>
 
           <ul className="dropdown-menu border-0" aria-labelledby="dropdownMenuLink">
-            <li><Link href="/member"><a className="dropdown-item text-lg color-palette-2">My Profile</a></Link></li>
-            <li><Link href="/"><a className="dropdown-item text-lg color-palette-2">Wallet</a></Link></li>
             <li>
-              <Link href="/member/edit-profile"><a className="dropdown-item text-lg color-palette-2">Account Settings</a></Link>
+              <Link href="/member">
+                <a className="dropdown-item text-lg color-palette-2">My Profile</a>
+              </Link>
+            </li>
+
+            <li>
+              <Link href="/">
+                <a className="dropdown-item text-lg color-palette-2">Wallet</a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/member/edit-profile">
+                <a className="dropdown-item text-lg color-palette-2">Account Settings</a>
+              </Link>
             </li>
             <li onClick={onLogout}>
               <a className="dropdown-item text-lg color-palette-2">Log Out</a>
