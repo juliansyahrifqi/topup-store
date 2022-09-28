@@ -2,11 +2,12 @@
 
 import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 import { setSignUp } from '../services/auth';
 import { getGameCategory } from '../services/player';
 import 'react-toastify/dist/ReactToastify.css';
+import { CategoryTypes } from '../services/data-types';
 
 export default function SignUpPhoto() {
   const [categories, setCategories] = useState([]);
@@ -99,7 +100,7 @@ export default function SignUpPhoto() {
                   value={favorite}
                   onChange={(event) => setFavorite(event.target.value)}
                 >
-                  {categories.map((category) => (
+                  {categories.map((category: CategoryTypes) => (
                     <option
                       key={category._id}
                       value={category._id}
@@ -131,8 +132,6 @@ export default function SignUpPhoto() {
             </div>
           </div>
         </form>
-
-        <ToastContainer />
       </div>
     </section>
   );
