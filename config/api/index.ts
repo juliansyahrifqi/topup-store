@@ -1,7 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import Cookies from 'js-cookie';
-import jwtDecode from 'jwt-decode';
-import { JWTPayloadTypes, UserTypes } from '../../services/data-types';
 
 interface CallAPIProps extends AxiosRequestConfig {
   token?: boolean;

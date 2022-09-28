@@ -1,4 +1,6 @@
 import React from 'react';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/router';
 import Footer from './Footer';
 import MenuItem from './MenuItem';
 import Profile from './Profile';
@@ -9,6 +11,12 @@ interface SidebarProps {
 
 export default function Sidebar(props: SidebarProps) {
   const { activeMenu } = props;
+  const router = useRouter();
+
+  const onLogout = () => {
+    Cookies.remove('token');
+    router.push('/sign-in');
+  };
 
   return (
     <section className="sidebar">
@@ -28,7 +36,7 @@ export default function Sidebar(props: SidebarProps) {
 
           <MenuItem title="Settings" icon="icon-menu-settings" active={activeMenu === 'settings'} href="/member/edit-profile" />
 
-          <MenuItem title="Log Out" icon="icon-menu-logout" href="/sign-in" />
+          <MenuItem title="Log Out" icon="icon-menu-logout" onClick={onLogout} />
         </div>
 
         <Footer />
