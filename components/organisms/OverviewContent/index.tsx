@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { HistoryTransactionTypes, TopupCategoriesTypes } from '../../../services/data-types';
-import { getMemberOverview } from '../../../services/player';
+import { getMemberOverview } from '../../../services/member';
 import Category from './Category';
 import TableRow from './TableRow';
 

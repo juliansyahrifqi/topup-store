@@ -3,10 +3,11 @@ import cx from 'classnames';
 interface ButtonTabProps {
     title: string;
     active: boolean;
+    onClick: () => void;
 }
 
 export default function ButtonTab(props: ButtonTabProps) {
-  const { title, active } = props;
+  const { title, active, onClick } = props;
 
   const btnClass = cx({
     'btn btn-status rounded-pill text-sm me-3': true,
@@ -14,8 +15,8 @@ export default function ButtonTab(props: ButtonTabProps) {
   });
 
   return (
-    <a data-filter="*" href="#" className={btnClass}>
+    <button className={btnClass} type="button" onClick={onClick}>
       {title}
-    </a>
+    </button>
   );
 }
