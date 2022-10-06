@@ -50,7 +50,7 @@ export default function TopUpForm(props: TopUpFormProps) {
   };
 
   return (
-    <form action="./checkout.html" method="POST">
+    <>
       <div className="pt-md-50 pt-30">
         <div className="">
           <label htmlFor="ID" className="form-label text-lg fw-medium color-palette-1 mb-10">
@@ -134,6 +134,6 @@ export default function TopUpForm(props: TopUpFormProps) {
           Continue
         </button>
       </div>
-    </form>
+    </>
   );
 }

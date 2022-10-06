@@ -9,8 +9,8 @@ import { getDetailVoucher, getFeaturedGame } from '../../services/player';
 
 interface DetailProps {
   dataItem: GameItemTypes;
-  nominals: NominalsTypes;
-  payments: PaymentTypes;
+  nominals: NominalsTypes[];
+  payments: PaymentTypes[];
 }
 
 export default function Detail({ dataItem, nominals, payments }: DetailProps) {
@@ -53,8 +53,6 @@ export async function getStaticPaths() {
     },
   }));
 
-  console.log(paths);
-
   return {
     paths,
     fallback: false,
@@ -70,7 +68,6 @@ export async function getStaticProps({ params }: GetStaticProps) {
   const { id } = params;
   const data = await getDetailVoucher(id);
 
-  console.log(data);
   return {
     props: {
       dataItem: data.data.detail,

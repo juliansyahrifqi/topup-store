@@ -10,14 +10,21 @@ import Sidebar from '../../components/organisms/Sidebar';
 import { JWTPayloadTypes, UserTypes } from '../../services/data-types';
 import { updateProfile } from '../../services/member';
 
+interface UserStateTypes {
+  id: string;
+  name: string;
+  email: string;
+  avatar: any;
+}
+
 export default function EditProfile() {
-  const [user, setUser] = useState({
+  const [user, setUser] = useState<UserStateTypes>({
     id: '',
     name: '',
     email: '',
     avatar: '',
   });
-  const [imagePreview, setImagePreview] = useState(null);
+  const [imagePreview, setImagePreview] = useState('/');
 
   useEffect(() => {
     const token = Cookies.get('token');
@@ -40,14 +47,13 @@ export default function EditProfile() {
     data.append('image', user.avatar);
     data.append('name', user.name);
 
-    // console.log(user.avatar);
     const response = await updateProfile(data, user.id);
 
-    // console.log(response);
     if (response.error) {
       toast.error(response.message);
     } else {
-      console.log(response);
+      toast.success('berhasil!');
+      router.push('/');
     }
   };
 
@@ -64,10 +70,10 @@ export default function EditProfile() {
               <div className="photo d-flex">
                 <div className="image-upload">
                   <label htmlFor="avatar">
-                    {imagePreview ? (
-                      <img src={imagePreview} alt="icon-upload" width={90} height={90} style={{ borderRadius: '100%' }} />
-                    ) : (
+                    {imagePreview === '/' ? (
                       <img src={`${IMG}/${user.avatar}`} alt="icon-upload" width={90} height={90} style={{ borderRadius: '100%' }} />
+                    ) : (
+                      <img src={imagePreview} alt="icon-upload" width={90} height={90} style={{ borderRadius: '100%' }} />
                     )}
                   </label>
                   <input
@@ -76,8 +82,8 @@ export default function EditProfile() {
                     name="avatar"
                     accept="image/png, image/jpeg"
                     onChange={(event) => {
-                      setImagePreview(URL.createObjectURL(event.target.files[0]));
-                      setUser({ ...user, avatar: event.target.files[0] });
+                      setImagePreview(URL.createObjectURL(event.target.files![0]));
+                      setUser({ ...user, avatar: event.target.files![0] });
                     }}
                   />
                 </div>

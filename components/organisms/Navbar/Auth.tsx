@@ -90,7 +90,6 @@ export default function Auth() {
       <Link href="/sign-in">
         <a
           className="btn btn-sign-in d-flex justify-content-center ms-lg-2 rounded-pill"
-          href="./src/sign-in.html"
           role="button"
         >
           Sign In
